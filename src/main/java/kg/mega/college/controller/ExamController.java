@@ -21,7 +21,7 @@ public class ExamController {
     }
 
     @GetMapping("/get/{examId}")
-    public String save(@PathVariable Long examId) {
+    public String get(@PathVariable Long examId) {
         return examService.get(examId);
     }
 
