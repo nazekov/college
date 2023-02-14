@@ -4,6 +4,7 @@ import kg.mega.college.model.Teacher;
 import kg.mega.college.model.dto.TeacherDto;
 import kg.mega.college.model.dto.TeacherDtoUpdate;
 import kg.mega.college.service.TeacherService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class TeacherController {
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody TeacherDto teacherDto) {
+    public ResponseEntity<?> save(@RequestBody TeacherDto teacherDto) {
         return teacherService.save(teacherDto);
     }
 

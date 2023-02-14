@@ -4,11 +4,12 @@ import kg.mega.college.mapper.SubjectMapper;
 import kg.mega.college.model.Subject;
 import kg.mega.college.model.Teacher;
 import kg.mega.college.model.dto.SubjectDto;
+import kg.mega.college.model.dto.studentdto.SubjectDtoFull;
 import kg.mega.college.repository.SubjectRepository;
+import kg.mega.college.service.ExamService;
 import kg.mega.college.service.SubjectService;
 import kg.mega.college.service.TeacherService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +19,16 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
     private final SubjectMapper subjectMapper;
     private final TeacherService teacherService;
+    private final ExamService examService;
 
     public SubjectServiceImpl(SubjectRepository subjectRepository,
                               SubjectMapper subjectMapper,
-                              TeacherService teacherService) {
+                              TeacherService teacherService,
+                              ExamService examService) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
         this.teacherService = teacherService;
+        this.examService = examService;
     }
 
     @Override
@@ -99,6 +103,25 @@ public class SubjectServiceImpl implements SubjectService {
         subject = subjectRepository.save(subject);
         return "Subject updated successfully\n" + subject;
     }
+
+    @Override
+    public SubjectDtoFull getSubjectDtoFullBySubjectId(Long subjectId) {
+        Optional<Subject> optionalSubject = findById(subjectId);
+        if (optionalSubject.isEmpty()) {
+            return null;
+        }
+        Subject subject = optionalSubject.get();
+        Long teacherId = subject.getTeacher().getId();
+
+        SubjectDtoFull subjectDto =
+                subjectMapper.convertDifferentDtosToSubjectDtoFull(
+                        subject.getName(),
+                        teacherService.teacherName(teacherId),
+                        examService.getExamsDtoMainInfoBySubjectIdList(subject.getId())
+                );
+        return subjectDto;
+    }
+
 
     //    @Override
 //    public String removeByName(String subjectName) {

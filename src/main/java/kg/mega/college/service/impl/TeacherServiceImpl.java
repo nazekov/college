@@ -6,6 +6,7 @@ import kg.mega.college.model.dto.TeacherDto;
 import kg.mega.college.model.dto.TeacherDtoUpdate;
 import kg.mega.college.repository.TeacherRepository;
 import kg.mega.college.service.TeacherService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,15 +30,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public String save(TeacherDto teacherDto) {
-        String result = answer[0];
+    public ResponseEntity<?> save(TeacherDto teacherDto) {
+//        String result = answer[0];
         Teacher teacher = teacherMapper.convertTeacherDtoToTeacher(teacherDto);
         Optional<Teacher> optionalTeacher = findTeacher(teacher);
-        if (optionalTeacher.isEmpty()) {
-            teacher = teacherRepository.save(teacher);
-            result = answer[1] + teacher;
+        if (optionalTeacher.isPresent()) {
+            return ResponseEntity.status(404).body("Teacher already exist in Database");
         }
-        return result;
+        teacher = teacherRepository.save(teacher);
+//        result = answer[1] + teacher;
+        return ResponseEntity.status(200).body(teacher);
     }
 
     @Override
@@ -92,4 +94,21 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findById(id);
     }
 
+    public String teacherName(Long teacherId) {
+        return teacherRepository.findById(teacherId)
+                .map(teacher -> teacher.getFirstName() + " "
+                               + teacher.getFirstName() + " "
+                               + teacher.getLastName()
+                )
+                .orElse(null);
+
+//        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
+//        if (optionalTeacher.isEmpty()) {
+//            return null;
+//        }
+//        Teacher teacher = optionalTeacher.get();
+//        return teacher.getFirstName() + " "
+//                + teacher.getLastName() + " "
+//                + teacher.getPatronymic();
+    }
 }

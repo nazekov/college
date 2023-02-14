@@ -89,4 +89,15 @@ public class GrantServiceImpl implements GrantService {
                 + newGrant.getStudent().getId() + " updated\n" +
                 newGrant;
     }
+
+    @Override
+    public Double getGrantAmountByStudentId(Long studentId) {
+        Optional<Grant> optionalGrant =
+                grantRepository
+                        .findByEndDateAndStudentId(
+                                DateUtil.getInstance().getEndDate(),
+                                studentId
+                        );
+        return optionalGrant.map(Grant::getAmount).orElse(null);
+    }
 }

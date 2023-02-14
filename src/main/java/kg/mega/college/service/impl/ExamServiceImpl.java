@@ -5,11 +5,13 @@ import kg.mega.college.model.Exam;
 import kg.mega.college.model.Subject;
 import kg.mega.college.model.dto.ExamDto;
 import kg.mega.college.model.dto.ExamDtoUpdate;
+import kg.mega.college.model.dto.studentdto.ExamDtoMainInfo;
 import kg.mega.college.repository.ExamRepository;
 import kg.mega.college.service.ExamService;
 import kg.mega.college.service.SubjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -78,5 +80,14 @@ public class ExamServiceImpl implements ExamService {
 
         exam = examRepository.save(exam);
         return "Exam updated successfully\n" + exam;
+    }
+
+    @Override
+    public List<ExamDtoMainInfo> getExamsDtoMainInfoBySubjectIdList(Long subjectId) {
+        List<Exam> examList = examRepository.findAllBySubjectId(subjectId);
+
+        List<ExamDtoMainInfo> examDtoMainInfoList =
+                examMapper.convertExamListToExamDtoMainInfoList(examList);
+        return examDtoMainInfoList;
     }
 }

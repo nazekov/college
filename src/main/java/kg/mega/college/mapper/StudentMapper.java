@@ -4,6 +4,8 @@ import kg.mega.college.model.Student;
 import kg.mega.college.model.Subject;
 import kg.mega.college.model.dto.StudentDto;
 import kg.mega.college.model.dto.StudentDtoUpdate;
+import kg.mega.college.model.dto.studentdto.StudentDtoMainInfo;
+import kg.mega.college.model.dto.studentdto.SubjectDtoFull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,5 +28,17 @@ public class StudentMapper {
         student.setAddress(studentDto.getAddress());
         student.setSubject(subject);
         return student;
+    }
+
+    public StudentDtoMainInfo convertDifferenDtoStudentDtoMain(Student student,
+                                                   Double grantAmount,
+                                                   SubjectDtoFull subjectDto) {
+        StudentDtoMainInfo studentDto = new StudentDtoMainInfo();
+        studentDto.setFirstName(student.getFirstName());
+        studentDto.setLastName(student.getLastName());
+        studentDto.setPatronymic(student.getPatronymic());
+        studentDto.setGrantAmount(grantAmount);
+        studentDto.setSubjectDtoFull(subjectDto);
+        return studentDto;
     }
 }

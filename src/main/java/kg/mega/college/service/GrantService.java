@@ -10,4 +10,5 @@ public interface GrantService {
 
     String update(GrantDto grantDto);
 
+    Double getGrantAmountByStudentId(Long studentId);
 }
