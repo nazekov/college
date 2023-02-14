@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -26,12 +24,12 @@ public class Grant {
 
     @Column(name = "start_date")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm", timezone = "Asia/Bishkek")
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+//    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     Date startDate;
 
     @Column(name = "end_date")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm", timezone = "Asia/Bishkek")
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+//    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     Date endDate;
 
     @ManyToOne

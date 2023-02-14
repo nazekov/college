@@ -8,8 +8,8 @@ import kg.mega.college.repository.GrantRepository;
 import kg.mega.college.service.GrantService;
 import kg.mega.college.service.StudentService;
 import kg.mega.college.utils.DateUtil;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class GrantServiceImpl implements GrantService {
 
     public GrantServiceImpl(GrantRepository grantRepository,
                             GrantMapper grantMapper,
-                            StudentService studentService) {
+                            @Lazy StudentService studentService) {
         this.grantRepository = grantRepository;
         this.grantMapper = grantMapper;
         this.studentService = studentService;

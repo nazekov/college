@@ -9,6 +9,7 @@ import kg.mega.college.repository.SubjectRepository;
 import kg.mega.college.service.ExamService;
 import kg.mega.college.service.SubjectService;
 import kg.mega.college.service.TeacherService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectServiceImpl(SubjectRepository subjectRepository,
                               SubjectMapper subjectMapper,
                               TeacherService teacherService,
-                              ExamService examService) {
+                              @Lazy ExamService examService) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
         this.teacherService = teacherService;

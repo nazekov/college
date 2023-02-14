@@ -21,5 +21,6 @@ public class StudentDtoMainInfo {
     @JsonProperty("grant")
     Double grantAmount;
 
+    @JsonProperty("subject")
     SubjectDtoFull subjectDtoFull;
 }
