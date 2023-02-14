@@ -1,3 +1,3 @@
-# college students
+# college
 
 educational project
